@@ -3,6 +3,7 @@ import { React } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from 'js-cookie';
+import Logo from '../assets/Picto_Blog_Assurance.png'
 
 
 const NavBar = () => {
@@ -23,17 +24,15 @@ const NavBar = () => {
     }
   
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-pink-700 p-6">
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
-        </svg>
+    <nav className="flex items-center justify-between flex-wrap bg-gray-200 p-6">
+      <div className="flex items-center flex-shrink-0 mr-6 text-blue-900">
+        <img src={Logo} alt="Logo" style={{ width: '10%' }} />
         <span className="font-semibold text-xl tracking-tight">
-          AlloMedia
+          Castilla Syndic 
         </span>
       </div>
       <div className="block lg:hidden">
-        <button className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+        <button className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-blue-700 hover:border-white">
           <svg
             className="fill-current h-3 w-3"
             viewBox="0 0 20 20"
@@ -46,15 +45,15 @@ const NavBar = () => {
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div className="text-sm lg:flex-grow">
           <Link to="/"
-            className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+            className="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-blue-700 mr-5">
             Home
           </Link>
           <Link to="/forgotPassword"
-            className="block me-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+            className="block me-2 mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-blue-700 mr-5">
             Reset Password
           </Link>
           <button
-            className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
+            className="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-blue-700"
             onClick={logout}>
             Logout
           </button>
