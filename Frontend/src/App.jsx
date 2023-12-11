@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 import VerifyEmail from './components/VerifyEmail'
 import AddAppartement from './components/AddAppartement'
 import AddClient from './components/AddClient'
+import Appartement from './components/Appartements'
 
 // eslint-disable-next-line react/prop-types
 const LogoutMiddleware = ({ children }) => {
@@ -49,6 +50,7 @@ function App() {
         
         <Route path='/add-client' element={<AddClient />} />
         <Route path='/add-appartement' element={<AddAppartement />} />
+        <Route path='/appartements' element={<Appartement />} />
       </Routes>
     </BrowserRouter>
   )

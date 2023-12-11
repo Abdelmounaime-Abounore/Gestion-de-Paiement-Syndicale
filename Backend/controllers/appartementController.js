@@ -23,7 +23,21 @@ async function createAppartement(req, res) {
     res.status(500).json({ error: 'Failed to create client' });
   }
 }
+async function getAppartement(req, res) {
+  try {
+    // Fetch all clients from the database
+    const appartements = await Appartment.find().populate('client', 'name');
+
+    // Respond with the fetched clients
+    res.status(200).json(appartements);
+  } catch (error) {
+    // Handle any errors that occur during the fetch operation
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch clients' });
+  }
+}
 
 module.exports = {
-    createAppartement
+    createAppartement,
+    getAppartement
 }
