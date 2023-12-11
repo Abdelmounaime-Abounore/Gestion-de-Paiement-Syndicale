@@ -40,8 +40,13 @@ function AppartementForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(appartement)
         try {
-            const response = await axios.post('http://localhost:3000/api/appartement/create-appartement', appartement);
+            const response = await axios.post('http://localhost:3000/api/appartement/create-appartement',
+            {
+                address: appartement.address,
+                clientId: appartement.client, 
+              });
 
             if (response.status === 201) {
                 console.log('Appartement created successfully');

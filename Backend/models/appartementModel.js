@@ -7,6 +7,7 @@ const apartmentSchema = new mongoose.Schema({
   },
   client: {
     type: mongoose.Schema.Types.ObjectId,
+    required: true,
     ref: 'Client',
   },
 });
