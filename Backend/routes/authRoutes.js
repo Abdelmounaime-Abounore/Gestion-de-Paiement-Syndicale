@@ -3,7 +3,7 @@ const router = express.Router()
 const authController = require('../controllers/authController');
 const tokenMeddleware = require('../middlewares/token.meddleware');
 const isLogged = require('../middlewares/isLogged.meddleware');
-
+const clientController = require('../controllers/clientController');
 
 
 router.post('/register',isLogged, authController.register);
@@ -12,6 +12,8 @@ router.post('/login',isLogged, authController.login);
 router.get('/logout', authController.logout);
 router.post('/forgotpassword',authController.forgotPassword);
 router.post('/resetpassword/:token',tokenMeddleware, authController.resetPassword);
+
+router.post('/create-client', clientController.createClient);
 
 
 

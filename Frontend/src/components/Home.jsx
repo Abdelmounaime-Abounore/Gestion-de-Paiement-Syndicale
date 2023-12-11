@@ -2,6 +2,7 @@
 import React from 'react'
 import NavBar from './NavBar'
 import Cookies from 'js-cookie';
+import { Link } from 'react-router-dom';
 
 
 const Home = () => {
@@ -11,14 +12,16 @@ const Home = () => {
 
   return (
     <>
-      <NavBar/>
-    <div className="flex items-center mt-10 pt-10 justify-center">
-    <div>
-      <div>
-          
+      <NavBar />
+      <div className="flex items-center mt-10 pt-10 justify-center">
+        <div>
+          <div>
+            <Link className='bg-blue-300' to="/add-appartement">
+              <button>Add Appartement</button>
+            </Link>
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
     </>
   )
 }

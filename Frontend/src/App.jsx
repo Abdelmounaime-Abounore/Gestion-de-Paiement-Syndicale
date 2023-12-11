@@ -7,15 +7,15 @@ import ForgotPassword from './components/ForgotPassword'
 import ResetPassword from './components/ResetPassword'
 import Cookies from 'js-cookie';
 import VerifyEmail from './components/VerifyEmail'
-//  qbounnqor
+import AddAppartement from './components/AddAppartement'
 
 // eslint-disable-next-line react/prop-types
 const LogoutMiddleware = ({ children }) => {
-  const isAuthenticated = !!Cookies.get('jwtToken'); 
+  const isAuthenticated = !!Cookies.get('jwtToken');
 
   if (isAuthenticated) {
     return children;
-  } 
+  }
 
   return (
     <Navigate to="/login" />
@@ -24,11 +24,11 @@ const LogoutMiddleware = ({ children }) => {
 
 // eslint-disable-next-line react/prop-types
 const LoginMiddleware = ({ children }) => {
-  const isAuthenticated = !!Cookies.get('jwtToken'); 
+  const isAuthenticated = !!Cookies.get('jwtToken');
 
   if (!isAuthenticated) {
     return children;
-  } 
+  }
 
   return (
     <Navigate to="/" />
@@ -39,12 +39,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-      <Route path='/' element={<LogoutMiddleware> <Home /> </LogoutMiddleware>} />
+        <Route path='/' element={<LogoutMiddleware> <Home /> </LogoutMiddleware>} />
         <Route path='/register' element={<LoginMiddleware> <Register /> </LoginMiddleware>} />
         <Route path='/login' element={<LoginMiddleware> <Login /> </LoginMiddleware>} />
-        <Route path='/forgotPassword' element={ <ForgotPassword />} />
-        <Route path='/resetPassword/:token' element={ <ResetPassword /> }/>
-        <Route path='/verifyEmail/:token' element={ <VerifyEmail /> }/>
+        <Route path='/forgotPassword' element={<ForgotPassword />} />
+        <Route path='/resetPassword/:token' element={<ResetPassword />} />
+        <Route path='/verifyEmail/:token' element={<VerifyEmail />} />
+        
+        <Route path='/add-appartement' element={<AddAppartement />} />
       </Routes>
     </BrowserRouter>
   )
