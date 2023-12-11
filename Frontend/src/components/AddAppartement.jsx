@@ -1,67 +1,89 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
-function ClientForm() {
-  const [client, setClient] = useState({
-    name: '',
-    cin: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setClient({
-        ...client,
-        [name]: value
+function AppartementForm() {
+    const [appartement, setAppartement] = useState({
+        address: '',
+        client: '',
     });
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:3000/api/client/create-client', client);
+    const [clients, setClients] = useState([]);
+
+    useEffect(() => {
+        const fetchClients = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/api/client/get-client');
+                setClients(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchClients();
+    }, []);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
       
-      if (response.status === 201) {
-        // The apartment was created successfully
-        console.log('Client created successfully');
-        // Reset the form fields
-        setClient({
-          name: '',
-          cin: '',
-        });
-      } else {
-        // There was an error creating the apartment
-        console.error('Failed to create client');
-      }
-    } catch (error) {
-      console.error('Failed to create client', error);
-    }
-  };
+        if (name === 'client') {
+          setAppartement(prevFormData => ({
+            ...prevFormData,
+            client: value
+          }));
+        } else {
+          setAppartement(prevFormData => ({
+            ...prevFormData,
+            [name]: value
+          }));
+        }
+      };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Client Name:
-        <input
-          type="text"
-          name="name"
-          value={client.name}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label>
-        Client CIN:
-        <input
-          type="text"
-          name="cin"
-          value={client.cin}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <button type="submit">Submit</button>
-    </form>
-  );
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:3000/api/appartement/create-appartement', appartement);
+
+            if (response.status === 201) {
+                console.log('Appartement created successfully');
+                setAppartement({
+                    address: '',
+                    client: '',
+                });
+            } else {
+                console.error('Failed to create appartement');
+            }
+        } catch (error) {
+            console.error('Failed to create appartment', error);
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <label>
+                Appartement Address:
+                <input
+                    type="text"
+                    name="address"
+                    value={appartement.address}
+                    onChange={handleChange}
+                />
+            </label>
+            <br />
+            <label>
+                Select Client:
+                <select name='client' onChange={handleChange}>
+                    <option value="">Select a client</option>
+                    {clients.map(client => (
+                        <option key={client._id} value={client._id}>
+                            {client.name}
+                        </option>
+                    ))}
+                </select>
+            </label>
+            <br />
+            <button type="submit">Submit</button>
+        </form>
+    );
 }
 
-export default ClientForm;
+export default AppartementForm;

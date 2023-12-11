@@ -5,17 +5,9 @@ const apartmentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  ClientName: {
-    type: String,
-    required: true,
-  },
-  CIN: {
-    type: Number,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
+  client: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Client',
   },
 });
 

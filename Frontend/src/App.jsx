@@ -8,6 +8,7 @@ import ResetPassword from './components/ResetPassword'
 import Cookies from 'js-cookie';
 import VerifyEmail from './components/VerifyEmail'
 import AddAppartement from './components/AddAppartement'
+import AddClient from './components/AddClient'
 
 // eslint-disable-next-line react/prop-types
 const LogoutMiddleware = ({ children }) => {
@@ -46,6 +47,7 @@ function App() {
         <Route path='/resetPassword/:token' element={<ResetPassword />} />
         <Route path='/verifyEmail/:token' element={<VerifyEmail />} />
         
+        <Route path='/add-client' element={<AddClient />} />
         <Route path='/add-appartement' element={<AddAppartement />} />
       </Routes>
     </BrowserRouter>

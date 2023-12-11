@@ -24,6 +24,21 @@ async function createClient(req, res) {
       }
 }
 
+async function getClient(req, res) {
+    try {
+      // Fetch all clients from the database
+      const clients = await Client.find();
+  
+      // Respond with the fetched clients
+      res.status(200).json(clients);
+    } catch (error) {
+      // Handle any errors that occur during the fetch operation
+      console.error(error);
+      res.status(500).json({ error: 'Failed to fetch clients' });
+    }
+  }
+
 module.exports = {
-    createClient
+    createClient,
+    getClient,
 }
