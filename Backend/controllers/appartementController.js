@@ -53,9 +53,26 @@ async function deleteAppartement(req, res) {
     res.status(500).json({ error: 'Failed to delete appartement' });
   }
 }
+async function updateAppartement(req, res) {
+  const apartmentId = req.params.id;
+  const updatedData = req.body;
+  
+  try {
+    const appartement = await Appartment.findByIdAndUpdate(apartmentId, updatedData);
+    if (!appartement) {
+      return res.status(404).json({ error: 'Appartement not found' });
+    }
+
+    return res.status(201).json({ message: 'Apartment updated successfully' });
+  } catch (error) {
+    console.error('Error updating apartment:', error);
+    return res.status(500).json({ error: 'Failed to update apartment' });
+  }
+}
 
 module.exports = {
     createAppartement,
     getAppartement,
-    deleteAppartement
+    deleteAppartement,
+    updateAppartement
 }

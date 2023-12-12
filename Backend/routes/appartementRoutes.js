@@ -6,6 +6,7 @@ const appartementController = require('../controllers/appartementController');
 router.post('/create-appartement', appartementController.createAppartement);
 router.get('/get-appartements', appartementController.getAppartement);
 router.delete('/delete-appartement/:id', appartementController.deleteAppartement);
+router.put('/edit-appartement/:id', appartementController.updateAppartement);
 
 
 
