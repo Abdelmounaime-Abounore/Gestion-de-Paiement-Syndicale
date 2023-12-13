@@ -10,6 +10,7 @@ import VerifyEmail from './components/VerifyEmail'
 import AddAppartement from './components/AddAppartement'
 import AddClient from './components/AddClient'
 import Appartement from './components/Appartements'
+import Paiement from './components/Paiement'
 
 // eslint-disable-next-line react/prop-types
 const LogoutMiddleware = ({ children }) => {
@@ -50,6 +51,7 @@ function App() {
         
         <Route path='/add-client' element={<AddClient />} />
         <Route path='/appartements' element={<Appartement />} />
+        <Route path='/paiement' element={<Paiement />} />
       </Routes>
     </BrowserRouter>
   )

@@ -8,7 +8,7 @@ function AppartementForm({ isOpen, onClose }) {
     });
 
     const [clients, setClients] = useState([]);
-    const [showModal, setShowModal] = useState(true);
+    // const [showModal, setShowModal] = useState(true);
 
     useEffect(() => {
         const fetchClients = async () => {
