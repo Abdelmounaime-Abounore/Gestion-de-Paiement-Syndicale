@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import UpdateModal from './updateModal';
+import NavBar from './NavBar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPenSquare } from '@fortawesome/free-solid-svg-icons';
 
 function Appartement() {
     const [appartements, setAppartements] = useState([]);
@@ -18,7 +22,7 @@ function Appartement() {
         };
 
         fetchAppartements();
-    }, []);
+    }, [appartements]);
 
     const handleDelete = async (id) => {
         try {
@@ -42,39 +46,45 @@ function Appartement() {
     };
 
     return (
-        <div>
-            <h1>Appartements</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Address</th>
-                        <th>Client</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {appartements.map(appartement => (
-                        <tr key={appartement._id}>
-                            <td>{appartement.address}</td>
-                            <td>{appartement.client.name}</td>
-                            <td>
-                                <button onClick={() => handleDelete(appartement._id)}>Delete</button>
-                                <button onClick={() => handleUpdate(appartement)}>Update</button>
-                            </td>
+        <>
+            <NavBar />
+            <div>
+                <h1 className='font-semibold text-2xl px-6 py-4 text-gray-600'>Appartements</h1>
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr className='text-gray-600'>
+                            <th scope="col" className="px-6 py-3">Address</th>
+                            <th scope="col" className="px-6 py-3">Client</th>
+                            <th scope="col" className="px-6 py-3">Actions</th>
+                            <th scope="col" className="px-6 py-3"></th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        {appartements.map(appartement => (
+                            <tr key={appartement._id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <td className="px-6 py-4">{appartement.address}</td>
+                                <td className="px-6 py-4">{appartement.client.name}</td>
+                                <td className="py-4" style={{paddingLeft: "40px"}}>
+                                    <button onClick={() => handleDelete(appartement._id)}><FontAwesomeIcon icon={faTrash} className='text-red-500 w-5 h-5'/></button>
+                                </td>
+                                <td className="py-4" style={{paddingLeft: "40px"}}>
+                                    <button onClick={() => handleUpdate(appartement)}><FontAwesomeIcon icon={faPenSquare} className='text-blue-500 w-5 h-5'/></button>
+                                </td>
+                            </tr>
 
-                    )
-                    )}
-                </tbody>
-            </table>
-            {isModalOpen && (
-                <UpdateModal
-                    isOpen={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
-                    appartement={selectedAppartement}
-                />
-            )}
-        </div>
+                        )
+                        )}
+                    </tbody>
+                </table>
+                {isModalOpen && (
+                    <UpdateModal
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                        appartement={selectedAppartement}
+                    />
+                )}
+            </div>
+        </>
     );
 }
 

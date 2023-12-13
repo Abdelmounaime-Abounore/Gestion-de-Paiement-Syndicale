@@ -42,29 +42,11 @@ const UpdateModal = ({ isOpen, onClose, appartement }) => {
 
     return (
         <div className={`modal ${isOpen ? 'open' : ''}`}>
-            {/* <div className="modal-content">
-                <form onSubmit={handleUpdate}>
-                    <h2>Update Appartement</h2>
-                    <label>Address:</label>
-                    <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
-                    <label>Client:</label>
-                    <select name="client" value={clientId} onChange={(e) => setClientId(e.target.value)}>
-                        <option value="">Select a client</option>
-                        {clients.map((client) => (
-                            <option key={client._id} value={client._id}>
-                                {client.name}
-                            </option>
-                        ))}
-                    </select>
-                    <button type="submit">Update</button>
-                    <button onClick={onClose}>Cancel</button>
-                </form>
-            </div> */}
             <div className="fixed inset-0 flex items-center justify-center z-50">
                 <div className="relative p-4 w-full max-w-md max-h-full">
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                        <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t bg-slate-400 dark:border-gray-600">
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                        <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t bg-gray-300 dark:border-gray-600">
+                            <h3 className="text-xl font-semibold text-gray-500 dark:text-white">
                                 Update Appartement
                             </h3>
                             <button
@@ -96,7 +78,7 @@ const UpdateModal = ({ isOpen, onClose, appartement }) => {
                                 <div>
                                     <label
                                         htmlFor="address"
-                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                        className="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
                                     >
                                         Address
                                     </label>
@@ -113,7 +95,7 @@ const UpdateModal = ({ isOpen, onClose, appartement }) => {
                                 <div>
                                     <label
                                         htmlFor="client"
-                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                        className="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
                                     >
                                         Client
                                     </label>
@@ -121,6 +103,7 @@ const UpdateModal = ({ isOpen, onClose, appartement }) => {
                                         name="client"
                                         value={clientId}
                                         onChange={(e) => setClientId(e.target.value)}
+                                        className="border border-gray-300 text-gray-700 py-1 px-3 rounded focus:outline-none focus:bg-white focus:border-gray-500"
                                     >
                                         <option value="">Select a client</option>
                                         {clients.map((client) => (
@@ -130,19 +113,21 @@ const UpdateModal = ({ isOpen, onClose, appartement }) => {
                                         ))}
                                     </select>
                                 </div>
-                                <button
-                                    type="submit"
-                                    className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                >
-                                    Update
-                                </button>
-                                <button
-                                    type="submit"
-                                    onClick={onClose}
-                                    className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                >
-                                    Cancel
-                                </button>
+                                <div>
+                                    <button
+                                        type="submit"
+                                        className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    >
+                                        Update
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        onClick={onClose}
+                                        className="text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-3 px-7 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>

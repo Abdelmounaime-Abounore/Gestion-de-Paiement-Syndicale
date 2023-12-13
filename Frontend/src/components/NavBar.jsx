@@ -24,7 +24,7 @@ const NavBar = () => {
     }
   
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-gray-200 p-6">
+    <nav className="flex items-center justify-between flex-wrap bg-gray-300 p-6">
       <div className="flex items-center flex-shrink-0 mr-6 text-blue-900">
         <img src={Logo} alt="Logo" style={{ width: '10%' }} />
         <span className="font-semibold text-xl tracking-tight">

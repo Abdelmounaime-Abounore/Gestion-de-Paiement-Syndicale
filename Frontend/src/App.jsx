@@ -49,7 +49,6 @@ function App() {
         <Route path='/verifyEmail/:token' element={<VerifyEmail />} />
         
         <Route path='/add-client' element={<AddClient />} />
-        <Route path='/add-appartement' element={<AddAppartement />} />
         <Route path='/appartements' element={<Appartement />} />
       </Routes>
     </BrowserRouter>
