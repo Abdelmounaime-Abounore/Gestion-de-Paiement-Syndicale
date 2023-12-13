@@ -44,7 +44,12 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 // routes
 const authRoutes = require('./routes/authRoutes')
 const userRoutes = require('./routes/userRoutes')
+const clientRoutes = require('./routes/clientRoutes')
+const appartementRoutes = require('./routes/appartementRoutes')
+
 app.use('/api/auth/', authRoutes)
 app.use('/api/user/', userRoutes)
+app.use('/api/client/', clientRoutes)
+app.use('/api/appartement/', appartementRoutes)
 
 app.listen(3000, ()=> console.log('Server Started'))
