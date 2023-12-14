@@ -2,27 +2,35 @@ const express = require('express');
 const Paiement = require('../models/paiementModel');
 
 async function createPaiement(req, res) {
-    try {
-        // Extract the paiement data from the request body
-        const { appartement } = req.body;
-    
-        // Create a new paiement object using the paiement model
-        const newPaiement = new Paiement({
-          appartement,
-        });
-    
-        // Save the new paiement to the database
-        const savedAppartement = await newPaiement.save();
-    
-        // Respond with the saved paiement data
-        res.status(201).json(savedAppartement);
-      } catch (error) {
-        // Handle any errors that occur during the creation of the paiement
-        console.error(error);
-        res.status(500).json({ error: 'Failed to create paiement' });
-      }
+  try {
+    const { appartement, month } = req.body;
+
+    const newPaiement = new Paiement({
+      appartement,
+      month
+    });
+
+    const savedAppartement = await newPaiement.save();
+
+    res.status(201).json(savedAppartement);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to create paiement' });
+  }
+}
+
+async function getPaiement(req, res) {
+  try {
+    const appartementId = req.params.appartementId
+    const appartementPaiements = await Paiement.find({ appartement: appartementId });
+    res.json({ paiements: appartementPaiements})
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch paiement' });
+  }
 }
 
 module.exports = {
-    createPaiement
+  createPaiement,
+  getPaiement
 }

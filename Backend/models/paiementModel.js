@@ -6,6 +6,10 @@ const paiementSchema = new mongoose.Schema({
         required: true,
         ref: 'Appartement',
     },
+    month: {
+        type: String,
+        required: true,
+    },
 })
 
 const Paiement = mongoose.model('Paiement', paiementSchema);

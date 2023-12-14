@@ -5,12 +5,13 @@ function Paiement({ onClose }) {
 
     const [formData, setFormData] = useState({
         appartement: '',
+        month: ''
     });
 
     const [appartements, setAppartements] = useState([]);
 
     useEffect(() => {
-        
+
         const fetchAppartements = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/api/appartement/get-appartements');
@@ -86,7 +87,7 @@ function Paiement({ onClose }) {
                                 </label>
                                 <select
                                     name='appartement'
-                                    onChange={(e) => setFormData({...formData, appartement: e.target.value})}
+                                    onChange={(e) => setFormData({ ...formData, appartement: e.target.value })}
                                     className="border border-gray-300 text-gray-700 py-1 px-3 rounded focus:outline-none focus:bg-white focus:border-gray-500"
                                 >
                                     <option value="">Select an Appartement ...</option>
@@ -95,6 +96,33 @@ function Paiement({ onClose }) {
                                             {appartement.address}
                                         </option>
                                     ))}
+                                </select>
+                            </div>
+                            <div>
+                                <label
+                                    htmlFor="month"
+                                    className="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
+                                >
+                                    Select Month:
+                                </label>
+                                <select
+                                    name="month"
+                                    onChange={(e) => setFormData({ ...formData, month: e.target.value })}
+                                    className="border border-gray-300 text-gray-700 py-1 px-3 rounded focus:outline-none focus:bg-white focus:border-gray-500"
+                                >
+                                    <option value="">Select a Month ...</option>
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August </option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
                                 </select>
                             </div>
                             <div className='my-3'>
