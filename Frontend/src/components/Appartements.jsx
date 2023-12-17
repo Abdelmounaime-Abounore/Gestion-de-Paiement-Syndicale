@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import UpdateModal from './updateModal';
+import PaymentModal from './Payment';
 import NavBar from './NavBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPenSquare } from '@fortawesome/free-solid-svg-icons';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import Calendar from 'react-calendar';
-import './Calendar.css'
-
-
 
 function Appartement() {
     const [appartements, setAppartements] = useState([]);
+    const [paiements, setPaiements] = useState([]);
     const [selectedAppartement, setSelectedAppartement] = useState(null);
+    const [IsModalPaiement, setIsModalPaiement] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-    const [date, setDate] = useState(new Date());
-
 
     useEffect(() => {
         const fetchAppartements = async () => {
@@ -51,17 +47,9 @@ function Appartement() {
         setSelectedAppartement(appartement);
         setIsModalOpen(true);
     };
-
-    const displayCalendar = async (appartement) => {
+    const displayModalPaiement = (appartement) => {
         setSelectedAppartement(appartement);
-        setIsCalendarOpen(true);
-
-        try {
-            const response = await axios.get(`http://localhost:3000/api/paiement/get-paiement/${appartement._id}`)
-            console.log(response)
-        } catch (error) {
-            console.error('Failed to delete appartement', error);
-        }
+        setIsModalPaiement(true);
     };
 
     return (
@@ -85,7 +73,8 @@ function Appartement() {
                                 <td className="px-6 py-4">{appartement.address}</td>
                                 <td className="px-6 py-4">{appartement.client.name}</td>
                                 <td className="px-6 py-4">
-                                    <FontAwesomeIcon onClick={ () => displayCalendar(appartement)} icon={faEye} className='text-blue-900 w-5 h-5' style={{ paddingLeft: "40px" }} />
+                                    {/* <FontAwesomeIcon onClick={() => displayCalendar(appartement)} icon={faEye} className='text-blue-900 w-5 h-5' style={{ paddingLeft: "40px" }} /> */}
+                                    <button onClick={() => displayModalPaiement(appartement)}><FontAwesomeIcon icon={faEye} className='text-blue-900 w-5 h-5' style={{ paddingLeft: "40px" }} /></button>
                                 </td>
                                 <td className="py-4" style={{ paddingLeft: "40px" }}>
                                     <button onClick={() => handleDelete(appartement._id)}><FontAwesomeIcon icon={faTrash} className='text-red-500 w-5 h-5' /></button>
@@ -94,7 +83,6 @@ function Appartement() {
                                     <button onClick={() => handleUpdate(appartement)}><FontAwesomeIcon icon={faPenSquare} className='text-blue-500 w-5 h-5' /></button>
                                 </td>
                             </tr>
-
                         )
                         )}
                     </tbody>
@@ -106,17 +94,14 @@ function Appartement() {
                         appartement={selectedAppartement}
                     />
                 )}
-            </div>
-
-            {isCalendarOpen && selectedAppartement && (
-                <div className='calendar-container'>
-                    <h1 className="px-6 py-4">{selectedAppartement.address}</h1>
-                    <Calendar 
-                        onChange={setDate} 
-                        value={date} maxDetail='year' 
+                {IsModalPaiement && (
+                    <PaymentModal 
+                        isOpen={IsModalPaiement}
+                        onClose={() => setIsModalPaiement(false)}
+                        appartement={selectedAppartement}
                     />
-                </div>
-            )}
+                )}
+            </div>
         </>
     );
 }

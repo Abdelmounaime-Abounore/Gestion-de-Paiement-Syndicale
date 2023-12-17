@@ -10,6 +10,10 @@ const paiementSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    year: {
+        type: Number,
+        required: true,
+    },
 })
 
 const Paiement = mongoose.model('Paiement', paiementSchema);

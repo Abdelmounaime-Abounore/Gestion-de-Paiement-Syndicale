@@ -7,10 +7,9 @@ import ForgotPassword from './components/ForgotPassword'
 import ResetPassword from './components/ResetPassword'
 import Cookies from 'js-cookie';
 import VerifyEmail from './components/VerifyEmail'
-import AddAppartement from './components/AddAppartement'
 import AddClient from './components/AddClient'
 import Appartement from './components/Appartements'
-import Paiement from './components/Paiement'
+import CreatePaiement from './components/createPaiement'
 
 // eslint-disable-next-line react/prop-types
 const LogoutMiddleware = ({ children }) => {
@@ -51,7 +50,7 @@ function App() {
         
         <Route path='/add-client' element={<AddClient />} />
         <Route path='/appartements' element={<Appartement />} />
-        <Route path='/paiement' element={<Paiement />} />
+        <Route path='/paiement' element={<CreatePaiement />} />
       </Routes>
     </BrowserRouter>
   )

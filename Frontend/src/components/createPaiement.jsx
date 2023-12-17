@@ -3,9 +3,17 @@ import axios from "axios";
 
 function Paiement({ onClose }) {
 
+    const currentYear = new Date().getFullYear();
+
+    const years = [];
+    for (let year = 2020; year <= currentYear; year++) {
+        years.push(year);
+    }
+
     const [formData, setFormData] = useState({
         appartement: '',
-        month: ''
+        month: '',
+        year: ''
     });
 
     const [appartements, setAppartements] = useState([]);
@@ -123,6 +131,23 @@ function Paiement({ onClose }) {
                                     <option value="October">October</option>
                                     <option value="November">November</option>
                                     <option value="December">December</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label className="block mb-2 text-sm font-medium text-gray-500 dark:text-white">
+                                    Select a Year
+                                </label>
+                                <select 
+                                    id="yearSelect" 
+                                    className="border border-gray-300 text-gray-700 py-1 px-3 rounded focus:outline-none focus:bg-white focus:border-gray-500" 
+                                    onChange={(e) => setFormData({ ...formData, year: e.target.value })}
+                                >
+                                    <option value="">Select Year</option>
+                                    {years.map((year) => (
+                                        <option key={year} value={year}>
+                                            {year}
+                                        </option>
+                                    ))}
                                 </select>
                             </div>
                             <div className='my-3'>

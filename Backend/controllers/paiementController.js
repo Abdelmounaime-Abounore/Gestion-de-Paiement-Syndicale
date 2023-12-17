@@ -3,11 +3,12 @@ const Paiement = require('../models/paiementModel');
 
 async function createPaiement(req, res) {
   try {
-    const { appartement, month } = req.body;
+    const { appartement, month, year } = req.body;
 
     const newPaiement = new Paiement({
       appartement,
-      month
+      month,
+      year
     });
 
     const savedAppartement = await newPaiement.save();
