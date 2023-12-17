@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import UpdateModal from './updateModal';
+import PaymentModal from './Payment';
 import NavBar from './NavBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPenSquare } from '@fortawesome/free-solid-svg-icons';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 function Appartement() {
     const [appartements, setAppartements] = useState([]);
+    const [paiements, setPaiements] = useState([]);
     const [selectedAppartement, setSelectedAppartement] = useState(null);
+    const [IsModalPaiement, setIsModalPaiement] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
@@ -30,7 +34,6 @@ function Appartement() {
 
             if (response.status === 200) {
                 console.log('Appartement deleted successfully');
-                // Remove the deleted appartement from the state
                 setAppartements(prevAppartements => prevAppartements.filter(appartement => appartement._id !== id));
             } else {
                 console.error('Failed to delete appartement');
@@ -44,6 +47,10 @@ function Appartement() {
         setSelectedAppartement(appartement);
         setIsModalOpen(true);
     };
+    const displayModalPaiement = (appartement) => {
+        setSelectedAppartement(appartement);
+        setIsModalPaiement(true);
+    };
 
     return (
         <>
@@ -55,6 +62,7 @@ function Appartement() {
                         <tr className='text-gray-600'>
                             <th scope="col" className="px-6 py-3">Address</th>
                             <th scope="col" className="px-6 py-3">Client</th>
+                            <th scope="col" className="px-6 py-3">Paiement Details</th>
                             <th scope="col" className="px-6 py-3">Actions</th>
                             <th scope="col" className="px-6 py-3"></th>
                         </tr>
@@ -64,14 +72,17 @@ function Appartement() {
                             <tr key={appartement._id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 <td className="px-6 py-4">{appartement.address}</td>
                                 <td className="px-6 py-4">{appartement.client.name}</td>
-                                <td className="py-4" style={{paddingLeft: "40px"}}>
-                                    <button onClick={() => handleDelete(appartement._id)}><FontAwesomeIcon icon={faTrash} className='text-red-500 w-5 h-5'/></button>
+                                <td className="px-6 py-4">
+                                    {/* <FontAwesomeIcon onClick={() => displayCalendar(appartement)} icon={faEye} className='text-blue-900 w-5 h-5' style={{ paddingLeft: "40px" }} /> */}
+                                    <button onClick={() => displayModalPaiement(appartement)}><FontAwesomeIcon icon={faEye} className='text-blue-900 w-5 h-5' style={{ paddingLeft: "40px" }} /></button>
                                 </td>
-                                <td className="py-4" style={{paddingLeft: "40px"}}>
-                                    <button onClick={() => handleUpdate(appartement)}><FontAwesomeIcon icon={faPenSquare} className='text-blue-500 w-5 h-5'/></button>
+                                <td className="py-4" style={{ paddingLeft: "40px" }}>
+                                    <button onClick={() => handleDelete(appartement._id)}><FontAwesomeIcon icon={faTrash} className='text-red-500 w-5 h-5' /></button>
+                                </td>
+                                <td className="py-4" style={{ paddingLeft: "40px" }}>
+                                    <button onClick={() => handleUpdate(appartement)}><FontAwesomeIcon icon={faPenSquare} className='text-blue-500 w-5 h-5' /></button>
                                 </td>
                             </tr>
-
                         )
                         )}
                     </tbody>
@@ -80,6 +91,13 @@ function Appartement() {
                     <UpdateModal
                         isOpen={isModalOpen}
                         onClose={() => setIsModalOpen(false)}
+                        appartement={selectedAppartement}
+                    />
+                )}
+                {IsModalPaiement && (
+                    <PaymentModal 
+                        isOpen={IsModalPaiement}
+                        onClose={() => setIsModalPaiement(false)}
                         appartement={selectedAppartement}
                     />
                 )}

@@ -46,10 +46,12 @@ const authRoutes = require('./routes/authRoutes')
 const userRoutes = require('./routes/userRoutes')
 const clientRoutes = require('./routes/clientRoutes')
 const appartementRoutes = require('./routes/appartementRoutes')
+const paiementRoute = require('./routes/paiementRoutes')
 
 app.use('/api/auth/', authRoutes)
 app.use('/api/user/', userRoutes)
 app.use('/api/client/', clientRoutes)
 app.use('/api/appartement/', appartementRoutes)
+app.use('/api/paiement/', paiementRoute)
 
 app.listen(3000, ()=> console.log('Server Started'))
