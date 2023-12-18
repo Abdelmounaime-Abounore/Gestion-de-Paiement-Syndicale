@@ -14,6 +14,7 @@ function Appartement() {
     const [selectedAppartement, setSelectedAppartement] = useState(null);
     const [IsModalPaiement, setIsModalPaiement] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [error, setError] = useState(null);
     
     const getCookie = (name) => {
         const cookies = document.cookie.split(';').map(cookie => cookie.trim());
@@ -39,7 +40,9 @@ function Appartement() {
         fetchAppartements();
     }, [appartements]);
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (e, id) => {
+        // e.preventDefault();
+        setError(null);
         try {
             const response = await axios.delete(`http://localhost:3000/api/appartement/delete-appartement/${id}/${tokenWithdots}`);
 
@@ -47,9 +50,10 @@ function Appartement() {
                 console.log('Appartement deleted successfully');
                 setAppartements(prevAppartements => prevAppartements.filter(appartement => appartement._id !== id));
             } else {
-                console.error('Failed to delete appartement');
+                setError('Failed to delete appartement');
             }
         } catch (error) {
+            setError('Failed to delete appartement');
             console.error('Failed to delete appartement', error);
         }
     };
@@ -68,6 +72,7 @@ function Appartement() {
             <NavBar />
             <div>
                 <h1 className='font-semibold text-2xl px-6 py-4 text-gray-600'>Appartements</h1>
+                {error && <p className="text-red-500 my-2 px-6">{error}</p>}
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr className='text-gray-600'>
