@@ -14,11 +14,22 @@ function Appartement() {
     const [selectedAppartement, setSelectedAppartement] = useState(null);
     const [IsModalPaiement, setIsModalPaiement] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    
+    const getCookie = (name) => {
+        const cookies = document.cookie.split(';').map(cookie => cookie.trim());
+        const cookie = cookies.find(cookie => cookie.startsWith(`${name}=`));
+        if (cookie) {
+          return cookie.split('=')[1];
+        }
+        return null;
+      };
+    const token = getCookie('jwtToken');
+    const tokenWithdots = token.replace(/~/g, '.');
 
     useEffect(() => {
         const fetchAppartements = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/appartement/get-appartements');
+                const response = await axios.get(`http://localhost:3000/api/appartement/get-appartements/${tokenWithdots}`);
                 setAppartements(response.data);
             } catch (error) {
                 console.error(error);
@@ -30,7 +41,7 @@ function Appartement() {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:3000/api/appartement/delete-appartement/${id}`);
+            const response = await axios.delete(`http://localhost:3000/api/appartement/delete-appartement/${id}/${tokenWithdots}`);
 
             if (response.status === 200) {
                 console.log('Appartement deleted successfully');

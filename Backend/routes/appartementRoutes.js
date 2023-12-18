@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const appartementController = require('../controllers/appartementController');
+const tokenMeddleware = require("../middlewares/token.meddleware")
 
-// router.post('/resetpassword/:token',tokenMeddleware, authController.resetPassword);
-router.post('/create-appartement', appartementController.createAppartement);
-router.get('/get-appartements', appartementController.getAppartement);
-router.delete('/delete-appartement/:id', appartementController.deleteAppartement);
-router.put('/edit-appartement/:id', appartementController.updateAppartement);
+router.post('/create-appartement/:token', tokenMeddleware, appartementController.createAppartement); //done
+router.get('/get-appartements/:token', tokenMeddleware, appartementController.getAppartement); //done
+router.delete('/delete-appartement/:id/:token', tokenMeddleware, appartementController.deleteAppartement); //done
+router.put('/edit-appartement/:id/:token', tokenMeddleware, appartementController.updateAppartement); //done
 
 
 

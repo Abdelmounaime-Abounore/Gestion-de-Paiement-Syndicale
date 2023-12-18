@@ -5,10 +5,22 @@ const PaymentModal = ({ isOpen, onClose, appartement }) => {
     const [appartementId, setAppartementId] = useState(appartement._id);
     const [paiements, setPaiements] = useState([]);
 
+    const getCookie = (name) => {
+        const cookies = document.cookie.split(';').map(cookie => cookie.trim());
+        const cookie = cookies.find(cookie => cookie.startsWith(`${name}=`));
+        if (cookie) {
+          return cookie.split('=')[1];
+        }
+        return null;
+      };
+    const token = getCookie('jwtToken');
+    const tokenWithdots = token.replace(/~/g, '.');
+
+
     useEffect(() => {
         const displayPayment = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/paiement/get-paiement/${appartementId}`)
+                const response = await axios.get(`http://localhost:3000/api/paiement/get-paiement/${appartementId}/${tokenWithdots}`)
                 const paiements = response.data.paiements;
                 setPaiements(paiements)
             } catch (error) {
