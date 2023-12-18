@@ -6,6 +6,7 @@ function ClientForm({ onClose }) {
     name: '',
     cin: '',
   });
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,6 +30,7 @@ function ClientForm({ onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null)
     try {
       const response = await axios.post(`http://localhost:3000/api/client/create-client/${tokenWithdots}`, client);
 
@@ -42,7 +44,16 @@ function ClientForm({ onClose }) {
         console.error('Failed to create client');
       }
     } catch (error) {
-      console.error('Failed to create client', error);
+      if (error.response) {
+        setError(error.response.data.error); 
+        console.error('Failed to create appartment', error.response.data.error);
+      } else if (error.request) {
+        setError('Request failed, please try again.'); 
+        console.error('Request was made but no response was received:', error.request);
+      } else {
+        setError('Error creating appartment, please try again.'); 
+        console.error('Error setting up the request:', error.message);
+      }
     }
   };
 
@@ -133,6 +144,7 @@ function ClientForm({ onClose }) {
                 </button>
               </div>
             </form>
+            {error && <p className="text-red-500 my-2">{error}</p>}
           </div>
         </div>
       </div>

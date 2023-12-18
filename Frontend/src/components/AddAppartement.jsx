@@ -8,7 +8,7 @@ function AppartementForm({ isOpen, onClose }) {
     });
 
     const [clients, setClients] = useState([]);
-    // const [showModal, setShowModal] = useState(true);
+    const [error, setError] = useState(null);
 
     const getCookie = (name) => {
         const cookies = document.cookie.split(';').map(cookie => cookie.trim());
@@ -52,6 +52,7 @@ function AppartementForm({ isOpen, onClose }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError(null)
         console.log(appartement)
         try {
             const response = await axios.post(`http://localhost:3000/api/appartement/create-appartement/${tokenWithdots}`,
@@ -67,12 +68,19 @@ function AppartementForm({ isOpen, onClose }) {
                     client: '',
                 });
                 onClose()
-            } else {
-                console.error('Failed to create appartement');
             }
         } catch (error) {
-            console.error('Failed to create appartment', error);
-        }
+            if (error.response) {
+              setError(error.response.data.error); 
+              console.error('Failed to create appartment', error.response.data.error);
+            } else if (error.request) {
+              setError('Request failed, please try again.'); 
+              console.error('Request was made but no response was received:', error.request);
+            } else {
+              setError('Error creating appartment, please try again.');
+              console.error('Error setting up the request:', error.message);
+            }
+          }
     };
 
     return (
@@ -165,6 +173,7 @@ function AppartementForm({ isOpen, onClose }) {
                                     </button>
                                 </div>
                             </form>
+                            {error && <p className="text-red-500 my-2">{error}</p>}
                         </div>
                     </div>
                 </div>

@@ -20,7 +20,7 @@ async function createAppartement(req, res) {
   } catch (error) {
     // Handle any errors that occur during the creation of the client
     console.error(error);
-    res.status(500).json({ error: 'Failed to create client' });
+    res.status(500).json({ error: 'Failed to create appartement' });
   }
 }
 async function getAppartement(req, res) {

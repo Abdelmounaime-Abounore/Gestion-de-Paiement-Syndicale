@@ -6,6 +6,7 @@ const UpdateModal = ({ isOpen, onClose, appartement }) => {
     const [clientId, setClientId] = useState(appartement.client._id);
     const [appartementId, setAppartementId] = useState(appartement._id);
     const [clients, setClients] = useState([]);
+    const [error, setError] = useState(null);
 
     const getCookie = (name) => {
         const cookies = document.cookie.split(';').map(cookie => cookie.trim());
@@ -20,6 +21,7 @@ const UpdateModal = ({ isOpen, onClose, appartement }) => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
+        setError(null);
         try {
             const updatedData = {
                 address: address,
@@ -34,8 +36,17 @@ const UpdateModal = ({ isOpen, onClose, appartement }) => {
 
             onClose();
         } catch (error) {
-            console.error('Error updating apartment:', error);
-        }
+            if (error.response) {
+              setError(error.response.data.error); 
+            //   console.error('Failed to update appartment', error.response.data.error);
+            } else if (error.request) {
+              setError('Request failed, please try again.'); 
+            //   console.error('Request was made but no response was received:', error.request);
+            } else {
+              setError('Error creating appartment, please try again.'); 
+            //   console.error('Error setting up the request:', error.message);
+            }
+          }
     };
 
     useEffect(() => {
@@ -140,6 +151,7 @@ const UpdateModal = ({ isOpen, onClose, appartement }) => {
                                     </button>
                                 </div>
                             </form>
+                            {error && <p className="text-red-500 my-2">{error}</p>}
                         </div>
                     </div>
                 </div>
