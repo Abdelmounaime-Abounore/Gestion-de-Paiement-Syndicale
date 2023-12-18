@@ -10,6 +10,8 @@ import VerifyEmail from './components/VerifyEmail'
 import AddClient from './components/AddClient'
 import Appartement from './components/Appartements'
 import CreatePaiement from './components/createPaiement'
+import NotFound from './components/NotFound';
+
 
 // eslint-disable-next-line react/prop-types
 const LogoutMiddleware = ({ children }) => {
@@ -48,9 +50,10 @@ function App() {
         <Route path='/resetPassword/:token' element={<ResetPassword />} />
         <Route path='/verifyEmail/:token' element={<VerifyEmail />} />
         
-        <Route path='/add-client' element={<AddClient />} />
-        <Route path='/appartements' element={<Appartement />} />
-        <Route path='/paiement' element={<CreatePaiement />} />
+        <Route path='/add-client' element={<LogoutMiddleware><AddClient /></LogoutMiddleware>} />
+        <Route path='/appartements' element={<LogoutMiddleware><Appartement /></LogoutMiddleware>} />
+        <Route path='/paiement' element={<LogoutMiddleware><CreatePaiement /></LogoutMiddleware>} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )

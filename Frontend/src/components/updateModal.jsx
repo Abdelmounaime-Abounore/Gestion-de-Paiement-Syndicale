@@ -7,6 +7,17 @@ const UpdateModal = ({ isOpen, onClose, appartement }) => {
     const [appartementId, setAppartementId] = useState(appartement._id);
     const [clients, setClients] = useState([]);
 
+    const getCookie = (name) => {
+        const cookies = document.cookie.split(';').map(cookie => cookie.trim());
+        const cookie = cookies.find(cookie => cookie.startsWith(`${name}=`));
+        if (cookie) {
+          return cookie.split('=')[1];
+        }
+        return null;
+      };
+    const token = getCookie('jwtToken');
+    const tokenWithdots = token.replace(/~/g, '.');
+
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
@@ -14,7 +25,7 @@ const UpdateModal = ({ isOpen, onClose, appartement }) => {
                 address: address,
                 client: clientId,
             };
-            const response = await axios.put(`http://localhost:3000/api/appartement/edit-appartement/${appartementId}`, updatedData);
+            const response = await axios.put(`http://localhost:3000/api/appartement/edit-appartement/${appartementId}/${tokenWithdots}`, updatedData);
             if (response.status === 201) {
                 console.log('Appartement updated successfully');
             } else {
@@ -30,7 +41,7 @@ const UpdateModal = ({ isOpen, onClose, appartement }) => {
     useEffect(() => {
         const fetchClients = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/client/get-client');
+                const response = await axios.get(`http://localhost:3000/api/client/get-client/${tokenWithdots}`);
                 setClients(response.data);
             } catch (error) {
                 console.error(error);

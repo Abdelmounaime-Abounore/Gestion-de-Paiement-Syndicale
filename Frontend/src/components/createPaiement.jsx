@@ -18,11 +18,23 @@ function Paiement({ onClose }) {
 
     const [appartements, setAppartements] = useState([]);
 
+    const getCookie = (name) => {
+        const cookies = document.cookie.split(';').map(cookie => cookie.trim());
+        const cookie = cookies.find(cookie => cookie.startsWith(`${name}=`));
+        if (cookie) {
+          return cookie.split('=')[1];
+        }
+        return null;
+      };
+    const token = getCookie('jwtToken');
+    const tokenWithdots = token.replace(/~/g, '.');
+
+
     useEffect(() => {
 
         const fetchAppartements = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/appartement/get-appartements');
+                const response = await axios.get(`http://localhost:3000/api/appartement/get-appartements/${tokenWithdots}`);
                 setAppartements(response.data);
             } catch (error) {
                 console.error(error);
@@ -36,7 +48,7 @@ function Paiement({ onClose }) {
         e.preventDefault();
         console.log(formData)
         try {
-            const response = await axios.post('http://localhost:3000/api/paiement/create-paiement', formData);
+            const response = await axios.post(`http://localhost:3000/api/paiement/create-paiement/${tokenWithdots}`, formData);
 
             if (response.status === 201) {
                 console.log('paiement created successfully');

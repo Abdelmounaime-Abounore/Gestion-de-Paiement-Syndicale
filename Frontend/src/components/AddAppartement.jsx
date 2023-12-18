@@ -10,10 +10,21 @@ function AppartementForm({ isOpen, onClose }) {
     const [clients, setClients] = useState([]);
     // const [showModal, setShowModal] = useState(true);
 
+    const getCookie = (name) => {
+        const cookies = document.cookie.split(';').map(cookie => cookie.trim());
+        const cookie = cookies.find(cookie => cookie.startsWith(`${name}=`));
+        if (cookie) {
+          return cookie.split('=')[1];
+        }
+        return null;
+      };
+    const token = getCookie('jwtToken');
+    const tokenWithdots = token.replace(/~/g, '.');
+
     useEffect(() => {
         const fetchClients = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/client/get-client');
+                const response = await axios.get(`http://localhost:3000/api/client/get-client/${tokenWithdots}`);
                 setClients(response.data);
             } catch (error) {
                 console.error(error);
@@ -43,7 +54,7 @@ function AppartementForm({ isOpen, onClose }) {
         e.preventDefault();
         console.log(appartement)
         try {
-            const response = await axios.post('http://localhost:3000/api/appartement/create-appartement',
+            const response = await axios.post(`http://localhost:3000/api/appartement/create-appartement/${tokenWithdots}`,
                 {
                     address: appartement.address,
                     clientId: appartement.client,
