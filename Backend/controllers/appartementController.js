@@ -1,9 +1,15 @@
 const express = require('express');
 const Appartment = require('../models/appartementModel');
 
+
 async function createAppartement(req, res) {
   try {
     const { address, clientId } = req.body;
+
+    // Validation logic
+    if (!address || !clientId) {
+      return res.status(400).json({ error: 'Validation failed' });
+    }
 
     const newAppartement = new Appartment({
       address,
