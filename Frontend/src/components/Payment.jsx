@@ -8,6 +8,7 @@ const PaymentModal = ({ isOpen, onClose, appartement }) => {
     const [appartementId, setAppartementId] = useState(appartement._id);
     const [appartementAddress, setappartementAddress] = useState(appartement.address);
     const [paiements, setPaiements] = useState([]);
+    const [hoveredIndex, setHoveredIndex] = useState(null);
 
     const getCookie = (name) => {
         const cookies = document.cookie.split(';').map(cookie => cookie.trim());
@@ -67,12 +68,20 @@ const PaymentModal = ({ isOpen, onClose, appartement }) => {
         }
     };
 
+    const handleHover = (index) => {
+        setHoveredIndex(index);
+    };
+
+    const handleLeave = () => {
+        setHoveredIndex(null);
+    };
+
     return (
         <div className={`modal ${isOpen ? 'open' : ''}`}>
             <div className="">
-                <div className="w-11/12 m-auto relative top-[-160px]">
+                <div className="w-11/12 m-auto relative top-[-210px]">
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                        <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t bg-gray-400 dark:border-gray-600">
+                        <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t bg-purple-950 dark:border-gray-600">
                             <h3 className="text-xl font-semibold text-gray-100 dark:text-white">
                                 Paiments of {appartementAddress} Appartement
                             </h3>
@@ -106,9 +115,11 @@ const PaymentModal = ({ isOpen, onClose, appartement }) => {
                                     {paiements.map((paiement, index) => (
                                         <p
                                             key={index}
+                                            onMouseEnter={() => handleHover(index)}
+                                            onMouseLeave={handleLeave}
                                             onClick={() => downloadPaymentDetailsAsPDF(appartementAddress, paiement)}
-                                            className={`w-1/5 p-5 flex-shrink-0 border border-gray-300 ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'} hover:bg-red-200 cursor-pointer`}>
-                                            {paiement.month} - {paiement.year}
+                                            className={`w-1/5 p-5 flex-shrink-0 border border-gray-300 ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'} ${hoveredIndex === index ? 'hover:bg-red-500 cursor-pointer text-gray-100 font-medium' : 'cursor-default'}`}>
+                                            {hoveredIndex === index ? 'Download' : `${paiement.month} - ${paiement.year}`}
                                         </p>
                                     ))}
                                 </div>
@@ -123,7 +134,7 @@ const PaymentModal = ({ isOpen, onClose, appartement }) => {
                                     onClick={onClose}
                                     className="text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-3 px-7 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 >
-                                    Cancel
+                                    Back
                                 </button>
                             </div>
                         </div>

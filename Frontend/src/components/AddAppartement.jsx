@@ -88,14 +88,14 @@ function AppartementForm({ isOpen, onClose }) {
             <div className="fixed inset-0 flex items-center justify-center z-50">
                 <div className="relative p-4 w-full max-w-md max-h-full ">
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 ">
-                        <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t bg-gray-300 dark:border-gray-600">
-                            <h3 className="text-xl font-semibold text-gray-500 dark:text-white">
+                        <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t bg-indigo-950 dark:border-gray-600">
+                            <h3 className="text-xl font-semibold text-gray-100 dark:text-white">
                                 Add new Appartement
                             </h3>
                             <button
                                 type="button"
                                 onClick={onClose}
-                                className="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                className="end-2.5 text-gray-100 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                                 data-modal-hide="authentication-modal"
                             >
                                 <svg
@@ -160,7 +160,7 @@ function AppartementForm({ isOpen, onClose }) {
                                     <button
                                         type="submit"
                                         onClick={handleSubmit}
-                                        className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                        className="text-white bg-blue-950 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     >
                                         Add Appartement
                                     </button>

@@ -15,15 +15,15 @@ function Appartement() {
     const [IsModalPaiement, setIsModalPaiement] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [error, setError] = useState(null);
-    
+
     const getCookie = (name) => {
         const cookies = document.cookie.split(';').map(cookie => cookie.trim());
         const cookie = cookies.find(cookie => cookie.startsWith(`${name}=`));
         if (cookie) {
-          return cookie.split('=')[1];
+            return cookie.split('=')[1];
         }
         return null;
-      };
+    };
     const token = getCookie('jwtToken');
     const tokenWithdots = token.replace(/~/g, '.');
 
@@ -69,54 +69,56 @@ function Appartement() {
 
     return (
         <>
-            <NavBar />
-            <div>
-                <h1 className='font-semibold text-2xl px-6 py-4 text-gray-600'>Appartements</h1>
-                {error && <p className="text-red-500 my-2 px-6">{error}</p>}
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr className='text-gray-600'>
-                            <th scope="col" className="px-6 py-3">Address</th>
-                            <th scope="col" className="px-6 py-3">Client</th>
-                            <th scope="col" className="px-6 py-3">Paiement Details</th>
-                            <th scope="col" className="px-6 py-3">Actions</th>
-                            <th scope="col" className="px-6 py-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {appartements.map(appartement => (
-                            <tr key={appartement._id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                <td className="px-6 py-4">{appartement.address}</td>
-                                <td className="px-6 py-4">{appartement.client.name}</td>
-                                <td className="px-6 py-4">
-                                    {/* <FontAwesomeIcon onClick={() => displayCalendar(appartement)} icon={faEye} className='text-blue-900 w-5 h-5' style={{ paddingLeft: "40px" }} /> */}
-                                    <button onClick={() => displayModalPaiement(appartement)}><FontAwesomeIcon icon={faEye} className='text-blue-900 w-5 h-5' style={{ paddingLeft: "40px" }} /></button>
-                                </td>
-                                <td className="py-4" style={{ paddingLeft: "40px" }}>
-                                    <button onClick={() => handleDelete(appartement._id)}><FontAwesomeIcon icon={faTrash} className='text-red-500 w-5 h-5' /></button>
-                                </td>
-                                <td className="py-4" style={{ paddingLeft: "40px" }}>
-                                    <button onClick={() => handleUpdate(appartement)}><FontAwesomeIcon icon={faPenSquare} className='text-blue-500 w-5 h-5' /></button>
-                                </td>
+            <div className='bg-blue-950 h-screen'>
+                <NavBar />
+                <div>
+                    <h1 className='font-semibold text-2xl px-6 mx-7 py-4 text-gray-100'>Appartements</h1>
+                    {error && <p className="text-red-500 my-2 px-6">{error}</p>}
+                    <table className="w-11/12 m-auto my-5 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr className='text-gray-600'>
+                                <th scope="col" className="px-6 py-3">Address</th>
+                                <th scope="col" className="px-6 py-3">Client</th>
+                                <th scope="col" className="px-6 py-3">Paiement Details</th>
+                                <th scope="col" className="px-6 py-3">Actions</th>
+                                <th scope="col" className="px-6 py-3"></th>
                             </tr>
-                        )
-                        )}
-                    </tbody>
-                </table>
-                {isModalOpen && (
-                    <UpdateModal
-                        isOpen={isModalOpen}
-                        onClose={() => setIsModalOpen(false)}
-                        appartement={selectedAppartement}
-                    />
-                )}
-                {IsModalPaiement && (
-                    <PaymentModal 
-                        isOpen={IsModalPaiement}
-                        onClose={() => setIsModalPaiement(false)}
-                        appartement={selectedAppartement}
-                    />
-                )}
+                        </thead>
+                        <tbody>
+                            {appartements.map(appartement => (
+                                <tr key={appartement._id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                    <td className="px-6 py-4">{appartement.address}</td>
+                                    <td className="px-6 py-4">{appartement.client.name}</td>
+                                    <td className="px-6 py-4">
+                                        {/* <FontAwesomeIcon onClick={() => displayCalendar(appartement)} icon={faEye} className='text-blue-900 w-5 h-5' style={{ paddingLeft: "40px" }} /> */}
+                                        <button onClick={() => displayModalPaiement(appartement)}><FontAwesomeIcon icon={faEye} className='text-blue-900 w-5 h-5' style={{ paddingLeft: "40px" }} /></button>
+                                    </td>
+                                    <td className="py-4" style={{ paddingLeft: "40px" }}>
+                                        <button onClick={() => handleDelete(appartement._id)}><FontAwesomeIcon icon={faTrash} className='text-red-500 w-5 h-5' /></button>
+                                    </td>
+                                    <td className="py-4" style={{ paddingLeft: "40px" }}>
+                                        <button onClick={() => handleUpdate(appartement)}><FontAwesomeIcon icon={faPenSquare} className='text-blue-500 w-5 h-5' /></button>
+                                    </td>
+                                </tr>
+                            )
+                            )}
+                        </tbody>
+                    </table>
+                    {isModalOpen && (
+                        <UpdateModal
+                            isOpen={isModalOpen}
+                            onClose={() => setIsModalOpen(false)}
+                            appartement={selectedAppartement}
+                        />
+                    )}
+                    {IsModalPaiement && (
+                        <PaymentModal
+                            isOpen={IsModalPaiement}
+                            onClose={() => setIsModalPaiement(false)}
+                            appartement={selectedAppartement}
+                        />
+                    )}
+                </div>
             </div>
         </>
     );

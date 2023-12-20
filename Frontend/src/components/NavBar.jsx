@@ -4,15 +4,16 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import Logo from '../assets/Picto_Blog_Assurance.png'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const NavBar = () => {
   const navigate = useNavigate()
   const logout = () => {
-      axios.get('http://localhost:3000/api/auth/logout')
+    axios.get('http://localhost:3000/api/auth/logout')
       .then(result => {
         Cookies.remove('jwtToken');
-        Cookies.remove('user') ;
+        Cookies.remove('user');
         const msg = result.data.success;
         console.log(msg);
         navigate('/login')
@@ -21,14 +22,14 @@ const NavBar = () => {
         const error = err.response ? err.response.data.error : 'An error occurred in logout';
         console.log(error);
       });
-    }
-  
+  }
+
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-gray-300 p-6">
+    <nav className="flex items-center justify-between flex-wrap bg-gray-100 p-3">
       <div className="flex items-center flex-shrink-0 mr-6 text-blue-900">
-        <img src={Logo} alt="Logo" style={{ width: '10%' }} />
+        <img className="mx-1" src={Logo} alt="Logo" style={{ width: '10%' }} />
         <span className="font-semibold text-xl tracking-tight">
-          Castilla Syndic 
+          Castilla Syndic
         </span>
       </div>
       <div className="block lg:hidden">
@@ -43,17 +44,26 @@ const NavBar = () => {
         </button>
       </div>
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+      <div className='flex items-center text-blue-900 mr-12'>
+          {/* <img className='w-20' src={Profile} alt="Photo de Profil" /> */}
+          <FontAwesomeIcon className='mx-1 text-blue-950 text-2xl' icon={faUser} />
+          <h2 className='font-medium text-blue-950'>Welcome Admin</h2>
+        </div>
         <div className="text-sm lg:flex-grow">
           <Link to="/"
-            className="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-blue-700 mr-5">
+            className="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-blue-700 mr-10 font-medium">
             Home
           </Link>
+          <Link to="/appartements"
+            className="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-blue-700 mr-10 font-medium">
+            Appartements
+          </Link>
           <Link to="/forgotPassword"
-            className="block me-2 mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-blue-700 mr-5">
+            className="block me-2 mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-blue-700 mr-10 font-medium">
             Reset Password
           </Link>
           <button
-            className="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-blue-700"
+            className="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-blue-700 font-medium"
             onClick={logout}>
             Logout
           </button>
