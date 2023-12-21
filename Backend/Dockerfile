@@ -1,6 +1,6 @@
 #  Dockerfile for Node Express Backend
 
-FROM node:18.13-alpine
+FROM node:20.8.0-alpine
 
 # Working directory be app
 WORKDIR /app
@@ -17,4 +17,4 @@ COPY . .
 # Exports
 EXPOSE 3000
 
-CMD ["npm","run","dev"]
+CMD ["npm","start"]
