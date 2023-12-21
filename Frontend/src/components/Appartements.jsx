@@ -88,7 +88,7 @@ function Appartement() {
                         <tbody>
                             {appartements.map(appartement => (
                                 <tr key={appartement._id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                    <td className="px-6 py-4">{appartement._id} - {appartement.address}</td>
+                                    <td className="px-6 py-4">{appartement.address}</td>
                                     <td className="px-6 py-4">{appartement.client.name}</td>
                                     <td className="px-6 py-4">
                                         {/* <FontAwesomeIcon onClick={() => displayCalendar(appartement)} icon={faEye} className='text-blue-900 w-5 h-5' style={{ paddingLeft: "40px" }} /> */}
