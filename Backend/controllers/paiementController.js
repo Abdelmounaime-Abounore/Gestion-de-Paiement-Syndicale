@@ -11,11 +11,11 @@ async function createPaiement(req, res) {
       year
     });
 
-    const savedAppartement = await newPaiement.save();
+    const savedPaiement = await newPaiement.save();
 
-    res.status(201).json(savedAppartement);
+    res.status(201).json(savedPaiement);
   } catch (error) {
-    console.error(error);
+    // Set the response status and send the error JSON response
     res.status(500).json({ error: 'Failed to create paiement' });
   }
 }
