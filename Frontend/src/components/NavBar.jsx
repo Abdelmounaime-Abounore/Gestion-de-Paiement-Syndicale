@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import Logo from '../assets/Picto_Blog_Assurance.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
 
 const NavBar = () => {
   const navigate = useNavigate()
@@ -23,6 +24,7 @@ const NavBar = () => {
         console.log(error);
       });
   }
+  const name = useSelector((state)=>(state.User.userName))
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-gray-100 p-3">
@@ -47,7 +49,7 @@ const NavBar = () => {
       <div className='flex items-center text-blue-900 mr-12'>
           {/* <img className='w-20' src={Profile} alt="Photo de Profil" /> */}
           <FontAwesomeIcon className='mx-1 text-blue-950 text-2xl' icon={faUser} />
-          <h2 className='font-medium text-blue-950'>Welcome Admin</h2>
+          <h2 className='font-medium text-blue-950'>Welcome {name}</h2>
         </div>
         <div className="text-sm lg:flex-grow">
           <Link to="/"

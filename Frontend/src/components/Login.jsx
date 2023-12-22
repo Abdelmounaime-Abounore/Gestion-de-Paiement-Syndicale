@@ -3,9 +3,12 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useSelector, useDispatch } from 'react-redux'
+import { name } from "../../Features/sliceAuthentification";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -20,7 +23,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(formData);
+    console.log("hhhhhhhhhhh");
     let isValid = true;
     let validationErrors = {};
 
@@ -44,15 +47,20 @@ const Login = () => {
 
     setErrors(validationErrors);
     setValid(isValid);
-
+      console.log("hhhhhh")
     if (Object.keys(validationErrors).length === 0) {
-      axios
+
+      console.log('first')
+        axios
         .post("http://localhost:3000/api/auth/login", formData)
         .then((result) => {
           const token = result.data.token;
           Cookies.set("jwtToken", token);
           const user = JSON.stringify( result.data.user);
           Cookies.set('user', user) ;
+          // console.log(result.data.user)
+          // console.log(result.data.user.name)
+          dispatch(name(result.data.user.name))
           navigate('/')
         })
         .catch((err) => {
