@@ -15,7 +15,6 @@ import Payment from "../assets/paiement.avif"
 import ShowAppartement from '../assets/show.jpg'
 
 const Home = () => {
-  const user = JSON.parse(Cookies.get('user'));
 
   const [isAppModelOppen, setIsAppModelOppen] = useState(false);
   const [isClientModalOppen, setIsClientModalOppen] = useState(false);
@@ -32,7 +31,6 @@ const Home = () => {
   const openPaiementModal = () => {
     setIsPaiementModalOppen(true);
   };
-
   return (
     <>
       <div className='bg-blue-950 pb-9'>
